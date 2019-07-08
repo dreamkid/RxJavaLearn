@@ -19,6 +19,11 @@ class SimpleUseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_use)
+
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
         webview.loadUrl("file:///android_asset/simpleUse.html")
     }
 

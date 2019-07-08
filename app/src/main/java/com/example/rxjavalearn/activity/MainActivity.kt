@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tv_test.text = resources.getString(R.string.text)
 
     }
 
@@ -31,46 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun toThreadSchedule(view: View) {
-
+        
     }
 
-    fun formatStr(view: View) {
-        var content = et_test.text.toString()
-        content = removeStartBlankLine(content)
-        val formatStr = removeEndBlankLine(content)
-        val p = Pattern.compile("(\r?\n(\\s*\r?\n)+)")
-        val m = p.matcher(content)
-        val groupCount = m.groupCount()
-        if (groupCount > 1) {
-            content = m.replaceAll("\n\n")
-        } else {
-            content = m.replaceAll("\n")
-        }
-
-        tv_test.text = formatStr
-    }
-
-    private fun removeEndBlankLine(comment: String): String {
-        if (comment.endsWith("\n")) {
-            val lastIndexOf = comment.lastIndexOf("\n")
-            val formatStr = comment.substring(0, lastIndexOf)
-            return removeEndBlankLine(formatStr)
-        } else {
-            return comment
-        }
-    }
-
-    fun publish(view: View) {
-        val content = et_test.text.toString()
-        tv_test.text = content
-    }
-
-    private fun removeStartBlankLine(comment: String): String {
-        if (comment.startsWith("\n")) {
-            val formatStr = comment.substring("\n".length , comment.length)
-            return removeStartBlankLine(formatStr)
-        } else {
-            return comment
-        }
-    }
 }

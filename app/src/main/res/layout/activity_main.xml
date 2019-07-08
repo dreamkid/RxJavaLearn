@@ -32,28 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-                android:text="去除连续换行"
-                android:onClick="formatStr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:id="@+id/tv_test"
-                android:background="@color/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        <EditText
-                android:id="@+id/et_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_publish"
-                android:text="发布"
-                android:onClick="publish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
