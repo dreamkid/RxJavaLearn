@@ -1,0 +1,71 @@
+<p>
+    <span style="font-size:14px;">RxJava简单用法</span><br />
+    <span style="font-size:14px;">1.创建被观察者</span><br />
+    <span style="font-size:14px;">2.创建观察者</span><br />
+    <span style="font-size:14px;">3.被观察者与观察者建立订阅关系(被观察者调用subscribe方法进行订阅)</span>
+</p>
+
+<p>
+    <span style="color:#E53333;">注：模拟网络请求的时候会发现主线程阻塞，因为这里没有设置线程调度。不要着急，线程调度部分会介绍如何设置被观察者执行任务线程和回调线程。</span>
+</p>
+
+<pre>//1. 被观察者
+val observable = Observable.create(object :ObservableOnSubscribe&lt;String&gt;{
+&nbsp; &nbsp; override fun subscribe(e: ObservableEmitter&lt;String&gt;?) {
+&nbsp; &nbsp; &nbsp; &nbsp; if(e == null)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return
+&nbsp; &nbsp; &nbsp; &nbsp; sleep(2000)
+&nbsp; &nbsp; &nbsp; &nbsp; e.onNext("请求成功！")
+&nbsp; &nbsp; &nbsp; &nbsp; e.onComplete()
+&nbsp; &nbsp; }
+
+})
+
+// 2.创建观察者
+val observer = object :Observer&lt;String&gt;{
+&nbsp; &nbsp; override fun onComplete() {
+&nbsp; &nbsp; &nbsp; &nbsp; Toast.makeText(this@SimpleUseActivity,"请求完成",Toast.LENGTH_SHORT).show()
+&nbsp; &nbsp; }
+
+&nbsp; &nbsp; override fun onSubscribe(d: Disposable?) {
+&nbsp; &nbsp; }
+
+&nbsp; &nbsp; override fun onNext(value: String?) {
+&nbsp; &nbsp; &nbsp; &nbsp; if(!TextUtils.isEmpty(value)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Toast.makeText(this@SimpleUseActivity,value,Toast.LENGTH_SHORT).show()
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+&nbsp; &nbsp; override fun onError(e: Throwable?) {
+&nbsp; &nbsp; }
+
+}
+
+// 3.建立订阅关系
+observable.subscribe(observer)
+
+</pre>
+
+<pre>
+// 也可链式调用<br />
+Observable.create(<br />
+&nbsp; &nbsp; object :ObservableOnSubscribe{<br />
+&nbsp; &nbsp; override fun subscribe(e: ObservableEmitter?) {<br />
+&nbsp; &nbsp; &nbsp; &nbsp; e?:return<br />
+&nbsp; &nbsp; &nbsp; &nbsp; sleep(2000)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; e.onNext("请求完成")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; e.onComplete()<br />
+&nbsp; &nbsp; }<br />
+}).subscribe(<br />
+&nbsp; &nbsp; object :Observer{<br />
+&nbsp; &nbsp; override fun onComplete() {<br />
+&nbsp; &nbsp; }<br />
+&nbsp; &nbsp; override fun onSubscribe(d: Disposable?) {<br />
+&nbsp; &nbsp; }<br />
+&nbsp; &nbsp; override fun onNext(value: String?) {<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Toast.makeText(this@SimpleUseActivity,value,Toast.LENGTH_SHORT).show()<br />
+&nbsp; &nbsp; }<br />
+&nbsp; &nbsp; override fun onError(e: Throwable?) {<br />
+&nbsp; &nbsp; }<br />
+})<br />
+</pre>
