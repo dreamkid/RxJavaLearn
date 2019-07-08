@@ -28,6 +28,7 @@ class SimpleUseActivity : AppCompatActivity() {
     }
 
     fun testNet(view:View) {
+        startLoading()
         //1. 被观察者
         val observable = Observable.create(object :ObservableOnSubscribe<String>{
             override fun subscribe(e: ObservableEmitter<String>?) {
@@ -53,14 +54,31 @@ class SimpleUseActivity : AppCompatActivity() {
                 if(!TextUtils.isEmpty(value)) {
                     Toast.makeText(this@SimpleUseActivity,value,Toast.LENGTH_SHORT).show()
                 }
+                loadSuccess()
             }
 
             override fun onError(e: Throwable?) {
+                loadFailed()
             }
 
         }
 
         // 3.建立订阅关系
         observable.subscribe(observer)
+    }
+
+    private fun loadSuccess() {
+        btn_test.isEnabled = true
+        progressbar.hide()
+    }
+
+    private fun loadFailed() {
+        progressbar.hide()
+        btn_test.isEnabled = true
+    }
+
+    private fun startLoading() {
+        progressbar.visibility = View.VISIBLE
+        btn_test.isEnabled = false
     }
 }

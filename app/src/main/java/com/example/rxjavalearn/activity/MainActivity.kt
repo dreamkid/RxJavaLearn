@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun toThreadSchedule(view: View) {
-        
+        startActivity(Intent(this,ThreadScheduleActivity::class.java))
     }
 
 }

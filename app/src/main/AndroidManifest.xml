@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.example.rxjavalearn">
 
     <application
@@ -8,16 +9,13 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".activity.SimpleUseActivity"
-                  android:theme="@style/AppTheme.NoActionBar"
-        >
-        </activity>
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning">
+
         <activity
                 android:name=".activity.IntroductionActivity"
                 android:label="RxJava简介"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,6 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:label="简单用法"
+                android:name=".activity.SimpleUseActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                />
+        <activity
+                android:label="线程调度"
+                android:name=".activity.ThreadScheduleActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                />
     </application>
 
 </manifest>
